@@ -23,20 +23,14 @@ let finansCopy = [
   new Finans(2, "Տան Վարձ", 1, new Date(), 0),
   new Finans(3, "Կոմունալներ", 1, new Date(), 0),
   new Finans(4, "Սնունդ", 1, new Date(), 0),
-  new Finans(4, "Հագուստ", 1, new Date(), 0),
-  new Finans(4, "Այլ ծապսեր", 1, new Date(), 0),
+  new Finans(5, "Հագուստ", 1, new Date(), 0),
+  new Finans(6, "Այլ ծապսեր", 1, new Date(), 0),
 ];
-let finans = []
+let finans = [];
 let finansDitails = [
-  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  // new FinansDitails(1, "Գազ", 524, new Date(), 3),
-  // new FinansDitails(1, "Ջուր", 1000, new Date(), 3),
 ];
 class App {
-   constructor() {
+  constructor() {
     this.pageInitialize();
     this.getLocalStoreg();
     this.giveAllFinansType();
@@ -46,6 +40,7 @@ class App {
     let divExpenses = document.getElementById("expenses");
     divExpenses.innerHTML = "";
     for (let i = 0; i < finData.length; i++) {
+      console.log(finData[i]);
       let div1 = document.createElement("div");
 
       let div2 = document.createElement("div");
@@ -58,7 +53,8 @@ class App {
 
       let div4 = document.createElement("div");
       let div4Span = document.createElement("span");
-      div4Span.innerText = "-" + (finData[i].Price == undefined ? 0:finData[i].Price);
+      div4Span.innerText =
+        "-" + (finData[i].Price == undefined ? 0 : finData[i].Price);
       div4.append(div4Span);
 
       let div5 = document.createElement("div");
@@ -73,9 +69,11 @@ class App {
       div1.append(div2, div3);
       divExpenses.append(div1);
     }
-    let allExpensesPrice = finans.filter(e=>e.Type== 1).reduce((a,b)=>a + b.Price,0);
+    let allExpensesPrice = finans
+      .filter((e) => e.Type == 1)
+      .reduce((a, b) => a + b.Price, 0);
     let expenses_pr = document.getElementById("expenses_pr");
-    expenses_pr.innerText = "-"+allExpensesPrice;
+    expenses_pr.innerText = "-" + allExpensesPrice;
   }
   openSaveModal(ID) {
     let FData = finans.find((e) => (e.ID = ID));
@@ -91,7 +89,7 @@ class App {
     let FTname = document.getElementById("FTname");
     let FTprice = document.getElementById("FTprice");
     let newData = new FinansDitails(
-      4,
+      new Date().getTime(),
       FTname.value,
       FTprice.value,
       new Date(),
@@ -106,7 +104,6 @@ class App {
     FTname.value = "";
     FTprice.value = "";
     this.saveLocalStorage();
-
   }
   giveAllFinansType() {
     for (let i = 0; i < finans?.length; i++) {
@@ -121,33 +118,35 @@ class App {
     saveFT.addEventListener("click", () => this.addFinansType()); // Use an arrow function here
   }
 
-  saveLocalStorage(){
+  saveLocalStorage() {
+    console.log(finans);
+    finans = finans.map(e=> new Finans (e.ID,e.Name,e.Type,e.Dtn,0))
     var FinansString = JSON.stringify(finans);
-    localStorage.setItem('Finans', FinansString);
+    localStorage.setItem("Finans", FinansString);
 
     var FinansDitailsString = JSON.stringify(finansDitails);
-    localStorage.setItem('FinansDitails', FinansDitailsString);
+    localStorage.setItem("FinansDitails", FinansDitailsString);
   }
-  getLocalStoreg(){
-    var FinansData = localStorage.getItem('Finans');
+  getLocalStoreg() {
+    var FinansData = localStorage.getItem("Finans");
     finans = JSON.parse(FinansData);
 
-    var FinansDitailsData = localStorage.getItem('FinansDitails');
+    var FinansDitailsData = localStorage.getItem("FinansDitails");
     finansDitails = JSON.parse(FinansDitailsData);
   }
-  pageInitialize(){
-    var FinansData = localStorage.getItem('Finans');
+  pageInitialize() {
+    var FinansData = localStorage.getItem("Finans");
     var finans2 = JSON.parse(FinansData);
-    if(finans2 == null || finans2.length == 0){
+    if (finans2 == null || finans2.length == 0) {
       var FinansString = JSON.stringify(finansCopy);
-      localStorage.setItem('Finans', FinansString);
+      localStorage.setItem("Finans", FinansString);
     }
-//
-    var FinansFData = localStorage.getItem('FinansDitails');
+    //
+    var FinansFData = localStorage.getItem("FinansDitails");
     var finansF2 = JSON.parse(FinansFData);
-    if(finansF2 == null || finans2.length == 0){
+    if (finansF2 == null || finans2.length == 0) {
       var FinansString = JSON.stringify([]);
-      localStorage.setItem('FinansDitails', FinansString);
+      localStorage.setItem("FinansDitails", FinansString);
     }
   }
 }
