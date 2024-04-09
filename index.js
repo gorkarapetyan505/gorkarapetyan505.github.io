@@ -18,22 +18,27 @@ class FinansDitails {
 }
 
 let selectedID = 0;
-let finans = [
+let finansCopy = [
   new Finans(1, "Տռանսպորտ", 1, new Date(), 0),
   new Finans(2, "Տան Վարձ", 1, new Date(), 0),
   new Finans(3, "Կոմունալներ", 1, new Date(), 0),
   new Finans(4, "Սնունդ", 1, new Date(), 0),
+  new Finans(4, "Հագուստ", 1, new Date(), 0),
+  new Finans(4, "Այլ ծապսեր", 1, new Date(), 0),
 ];
+let finans = []
 let finansDitails = [
-  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
-  new FinansDitails(1, "Գազ", 524, new Date(), 3),
-  new FinansDitails(1, "Ջուր", 1000, new Date(), 3),
+  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  // new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  // new FinansDitails(1, "Գազ", 524, new Date(), 3),
+  // new FinansDitails(1, "Ջուր", 1000, new Date(), 3),
 ];
 class App {
-  constructor() {
+   constructor() {
+    this.pageInitialize();
+    this.getLocalStoreg();
     this.giveAllFinansType();
     this.saveButtonClick();
   }
@@ -53,12 +58,10 @@ class App {
 
       let div4 = document.createElement("div");
       let div4Span = document.createElement("span");
-      div4Span.innerText = "-" + finData[i].Price;
+      div4Span.innerText = "-" + (finData[i].Price == undefined ? 0:finData[i].Price);
       div4.append(div4Span);
 
       let div5 = document.createElement("div");
-      // let div5Btn1 = document.createElement("button");
-      // div5Btn1.innerText="-";
       let div5Btn2 = document.createElement("button");
       div5Btn2.innerText = "+";
       div5Btn2.addEventListener("click", () =>
@@ -70,6 +73,9 @@ class App {
       div1.append(div2, div3);
       divExpenses.append(div1);
     }
+    let allExpensesPrice = finans.filter(e=>e.Type== 1).reduce((a,b)=>a + b.Price,0);
+    let expenses_pr = document.getElementById("expenses_pr");
+    expenses_pr.innerText = "-"+allExpensesPrice;
   }
   openSaveModal(ID) {
     let FData = finans.find((e) => (e.ID = ID));
@@ -99,9 +105,10 @@ class App {
     }
     FTname.value = "";
     FTprice.value = "";
+    this.saveLocalStorage();
+
   }
   giveAllFinansType() {
-    console.log(finans);
     for (let i = 0; i < finans?.length; i++) {
       finans[i].Price = finansDitails
         ?.filter((e) => e.FinansID == finans[i].ID)
@@ -112,6 +119,36 @@ class App {
   saveButtonClick() {
     let saveFT = document.getElementById("saveFT");
     saveFT.addEventListener("click", () => this.addFinansType()); // Use an arrow function here
+  }
+
+  saveLocalStorage(){
+    var FinansString = JSON.stringify(finans);
+    localStorage.setItem('Finans', FinansString);
+
+    var FinansDitailsString = JSON.stringify(finansDitails);
+    localStorage.setItem('FinansDitails', FinansDitailsString);
+  }
+  getLocalStoreg(){
+    var FinansData = localStorage.getItem('Finans');
+    finans = JSON.parse(FinansData);
+
+    var FinansDitailsData = localStorage.getItem('FinansDitails');
+    finansDitails = JSON.parse(FinansDitailsData);
+  }
+  pageInitialize(){
+    var FinansData = localStorage.getItem('Finans');
+    var finans2 = JSON.parse(FinansData);
+    if(finans2 == null || finans2.length == 0){
+      var FinansString = JSON.stringify(finansCopy);
+      localStorage.setItem('Finans', FinansString);
+    }
+//
+    var FinansFData = localStorage.getItem('FinansDitails');
+    var finansF2 = JSON.parse(FinansFData);
+    if(finansF2 == null || finans2.length == 0){
+      var FinansString = JSON.stringify([]);
+      localStorage.setItem('FinansDitails', FinansString);
+    }
   }
 }
 console.log(new App());
