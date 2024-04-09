@@ -7,21 +7,35 @@ class Finans {
     this.Price = price;
   }
 }
+class FinansDitails {
+  constructor(id, name, price, dtn, finansID) {
+    this.ID = id;
+    this.Name = name;
+    this.Price = price;
+    this.Dtn = dtn;
+    this.FinansID = finansID;
+  }
+}
 
+let selectedID = 0;
+let finans = [
+  new Finans(1, "Տռանսպորտ", 1, new Date(), 0),
+  new Finans(2, "Տան Վարձ", 1, new Date(), 0),
+  new Finans(3, "Կոմունալներ", 1, new Date(), 0),
+  new Finans(4, "Սնունդ", 1, new Date(), 0),
+];
+let finansDitails = [
+  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  new FinansDitails(1, "Ավտոբուս", 100, new Date(), 1),
+  new FinansDitails(1, "Գազ", 524, new Date(), 3),
+  new FinansDitails(1, "Ջուր", 1000, new Date(), 3),
+];
 class App {
-  finans = [
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 2000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 4000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 5000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 6000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 7000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 8000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 9000),
-    new Finans(1, "Տռանսպորտ", 1, new Date(), 90000),
-  ];
-  selectedID = 0;
   constructor() {
     this.giveAllFinansType();
+    this.saveButtonClick();
   }
   showExpenses(finData) {
     let divExpenses = document.getElementById("expenses");
@@ -47,7 +61,9 @@ class App {
       // div5Btn1.innerText="-";
       let div5Btn2 = document.createElement("button");
       div5Btn2.innerText = "+";
-
+      div5Btn2.addEventListener("click", () =>
+        this.openSaveModal(finData[i].ID)
+      );
       div5.append(div5Btn2);
       div3.append(div4, div5);
 
@@ -55,13 +71,47 @@ class App {
       divExpenses.append(div1);
     }
   }
+  openSaveModal(ID) {
+    let FData = finans.find((e) => (e.ID = ID));
+    let openBtn = document.getElementById("openmodal");
+    if (openBtn != null) {
+      openBtn.click();
+    }
+    let title_mod = document.getElementById("title_mod");
+    title_mod.innerText = FData?.Name + " ծախսեր";
+    selectedID = ID;
+  }
   addFinansType() {
-    // let name = "";
+    let FTname = document.getElementById("FTname");
+    let FTprice = document.getElementById("FTprice");
+    let newData = new FinansDitails(
+      4,
+      FTname.value,
+      FTprice.value,
+      new Date(),
+      selectedID
+    );
+    finansDitails.push(newData);
+    this.giveAllFinansType();
+    let closeSave = document.getElementById("closeSave");
+    if (closeSave != null) {
+      closeSave.click();
+    }
+    FTname.value = "";
+    FTprice.value = "";
   }
   giveAllFinansType() {
-    this.showExpenses(this.finans);
-    // finans = localStorage.getItem('FinasTypes');
-    // console.log(finans);
+    console.log(finans);
+    for (let i = 0; i < finans?.length; i++) {
+      finans[i].Price = finansDitails
+        ?.filter((e) => e.FinansID == finans[i].ID)
+        .reduce((a, b) => a + +b.Price, 0);
+    }
+    this.showExpenses(finans);
+  }
+  saveButtonClick() {
+    let saveFT = document.getElementById("saveFT");
+    saveFT.addEventListener("click", () => this.addFinansType()); // Use an arrow function here
   }
 }
 console.log(new App());
