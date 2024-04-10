@@ -19,12 +19,12 @@ class FinansDitails {
 
 let selectedID = 0;
 let finansCopy = [
-  new Finans(1, "Տռանսպորտ", 1, new Date(), 0),
+  new Finans(1, "Տրանսպորտ", 1, new Date(), 0),
   new Finans(2, "Տան Վարձ", 1, new Date(), 0),
   new Finans(3, "Կոմունալներ", 1, new Date(), 0),
   new Finans(4, "Սնունդ", 1, new Date(), 0),
   new Finans(5, "Հագուստ", 1, new Date(), 0),
-  new Finans(6, "Այլ ծապսեր", 1, new Date(), 0),
+  new Finans(6, "Այլ ծախսեր", 1, new Date(), 0),
 ];
 let finans = [];
 let finansDitails = [
