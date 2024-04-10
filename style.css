@@ -36,6 +36,10 @@ font-size: 19px;
 }
 /* \\\ */
 
+.expenses a{
+    color: white;
+    font-size: 16px;
+}
 .expenses{
     background: rgba(241, 0, 0, 0.86);
     padding: 5px;

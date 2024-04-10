@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    background: rgba(0, 38, 92, 0.86);
+}
+.up{
+    background: rgba(0, 31, 75, 0.86);
+    display: flex;
+    padding: 12px 20px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+}
+.up > div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.up > span{
+    color: red;
+}
+.up img{
+    width: 22px;
+}

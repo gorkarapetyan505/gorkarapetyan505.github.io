@@ -45,7 +45,8 @@ class App {
             let div1 = document.createElement("div");
 
             let div2 = document.createElement("div");
-            let div2P = document.createElement("p");
+            let div2P = document.createElement("a");
+            div2P.href = "details.html?ID="+finData[i].ID;
             div2P.innerText = finData[i].Name;
             div2.append(div2P);
             div1.append(div2);
