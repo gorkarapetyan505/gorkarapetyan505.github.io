@@ -36,56 +36,63 @@ class App {
     this.giveAllFinansType();
     this.saveButtonClick();
   }
-  showExpenses(finData) {
-    let divExpenses = document.getElementById("expenses");
-    divExpenses.innerHTML = "";
-    for (let i = 0; i < finData.length; i++) {
-      console.log(finData[i]);
-      let div1 = document.createElement("div");
+    showExpenses(finData) {
+        console.log(finData);
+        let divExpenses = document.getElementById("expenses");
+        divExpenses.innerHTML = "";
+        for (let i = 0; i < finData.length; i++) {
+            console.log(finData[i].ID);
+            let div1 = document.createElement("div");
 
-      let div2 = document.createElement("div");
-      let div2P = document.createElement("p");
-      div2P.innerText = finData[i].Name;
-      div2.append(div2P);
-      div1.append(div2);
+            let div2 = document.createElement("div");
+            let div2P = document.createElement("p");
+            div2P.innerText = finData[i].Name;
+            div2.append(div2P);
+            div1.append(div2);
 
-      let div3 = document.createElement("div");
+            let div3 = document.createElement("div");
 
-      let div4 = document.createElement("div");
-      let div4Span = document.createElement("span");
-      div4Span.innerText =
-        "-" + (finData[i].Price == undefined ? 0 : finData[i].Price);
-      div4.append(div4Span);
+            let div4 = document.createElement("div");
+            let div4Span = document.createElement("span");
+            div4Span.innerText = "-" + (finData[i].Price == undefined ? 0 : finData[i].Price);
+            div4.append(div4Span);
 
-      let div5 = document.createElement("div");
-      let div5Btn2 = document.createElement("button");
-      div5Btn2.innerText = "+";
-      div5Btn2.addEventListener("click", () =>
-        this.openSaveModal(finData[i].ID)
-      );
-      div5.append(div5Btn2);
-      div3.append(div4, div5);
+            let div5 = document.createElement("div");
+            let div5Btn2 = document.createElement("button");
+            div5Btn2.innerText = "+";
+            div5Btn2.addEventListener("click", () => {
+                selectedID = finData[i].ID;
+                this.openSaveModal()
+            });
+            div5.append(div5Btn2);
+            div3.append(div4, div5);
 
-      div1.append(div2, div3);
-      divExpenses.append(div1);
-    }
+            div1.append(div2, div3);
+            divExpenses.append(div1);
+        }
+    //
     let allExpensesPrice = finans
       .filter((e) => e.Type == 1)
       .reduce((a, b) => a + b.Price, 0);
     let expenses_pr = document.getElementById("expenses_pr");
     expenses_pr.innerText = "-" + allExpensesPrice;
   }
-  openSaveModal(ID) {
-    let FData = finans.find((e) => (e.ID = ID));
+    openSaveModal() {   
+        let ID = selectedID
+        let FData = finans.find((e) => (e.ID == ID));
     let openBtn = document.getElementById("openmodal");
     if (openBtn != null) {
       openBtn.click();
     }
-    let title_mod = document.getElementById("title_mod");
+      let title_mod = document.getElementById("title_mod");
+
     title_mod.innerText = FData?.Name + " ծախսեր";
     selectedID = ID;
   }
-  addFinansType() {
+    addFinansType() {
+        //for (let i = 0; i < finans.length; i++) {
+        //    finans[i].ID = i + 1;
+        //}
     let FTname = document.getElementById("FTname");
     let FTprice = document.getElementById("FTprice");
     let newData = new FinansDitails(
