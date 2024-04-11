@@ -31,7 +31,7 @@ class App {
     let TitleEl = document.getElementById("title");
     TitleEl.innerText = FindData.Name;
     //
-    let FiltrData = finansDitails.filter(e=>e.FinansID == ID);
+    let FiltrData = finansDitails.filter(e=>e.FinansID == ID).sort((a, b) => b.ID - a.ID);
     let priceSum = FiltrData.reduce((a,b)=>a+ +b.Price,0);
     let TitleE2 = document.getElementById("priceSum");
     TitleE2.innerText = "-" + priceSum;
