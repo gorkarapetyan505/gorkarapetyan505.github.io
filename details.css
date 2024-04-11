@@ -6,11 +6,12 @@
 }
 body{
     background: rgba(0, 38, 92, 0.86);
+    
 }
 .up{
     background: rgba(0, 31, 75, 0.86);
     display: flex;
-    padding: 12px 20px;
+    padding: 12px 20px 12px 20px;
     color: white;
     justify-content: space-between;
     align-items: center;
@@ -25,4 +26,55 @@ body{
 }
 .up img{
     width: 22px;
+}
+
+/* //// */
+
+.app{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: white;
+    padding: 3px;
+    overflow: scroll;
+    height: calc(100vh - 50px);
+}
+.app::-webkit-scrollbar{
+    display: none;
+}
+.app >div{
+    width: 100%;
+    padding: 10PX;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.253);
+}
+.app >div button{
+    background: transparent;
+    border: 0;
+}
+.app >div > div:nth-child(2) >div:nth-child(1) {
+    display: flex;
+    gap:7px ;
+}
+.app > div > div:nth-child(2) >span{
+    color: red;
+    font-size: 16px;
+}
+.app > div > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+/* // */
+.app >div >div:nth-child(1){
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 16px;
+}
+.app >div >div:nth-child(1) >span:nth-child(2){
+    font-size: 11px;
 }
