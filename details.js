@@ -18,9 +18,14 @@ class FinansDitails {
 }
 let finans = [];
 let finansDitails = [];
+let selectedID = 0;
 class App {
   constructor() {
     this.show();
+    this.EditFinans = this.EditFinans.bind(this);
+    this.deleteFinansDetails = this.deleteFinansDetails.bind(this);
+    saveFT.addEventListener("click",this.EditFinans);
+    deleteFD.addEventListener("click",this.deleteFinansDetails);
   }
 
   show() {
@@ -38,6 +43,7 @@ class App {
     this.showElement(FiltrData);
   }
   saveLocalStorage() {
+    console.log(1)
     console.log(finans);
     finans = finans.map((e) => new Finans(e.ID, e.Name, e.Type, e.Dtn, 0));
     var FinansString = JSON.stringify(finans);
@@ -53,13 +59,17 @@ class App {
     var FinansDitailsData = localStorage.getItem("FinansDitails");
     finansDitails = JSON.parse(FinansDitailsData);
   }
-  deleteFinansDetails(ID){
-    console.log(ID);
-    finansDitails = finansDitails.filter(e=> e.ID != ID);
-    this.saveLocalStorage();
-    this.show();
+  deleteFinansDetails(){
+    console.log(selectedID)
+    if(selectedID != 0){
+      finansDitails = finansDitails.filter(e=> e.ID != selectedID);
+      this.saveLocalStorage();
+      this.show();
+      closeDeleteM.click();
+    }
   }
   showElement(FiltrData){
+
     let appdiv = document.getElementById("app");
     appdiv.innerText = "";
 
@@ -67,7 +77,7 @@ class App {
       let div1 = document.createElement("div");
 
       let div2 = document.createElement("div");
-      let div2s1 = document.createElement("span");
+      let div2s1 = document.createElement("p");
       div2s1.innerText = FiltrData[i].Name;
       let div2s2 = document.createElement("span");
       div2s2.innerText = getFormattedDateTime(FiltrData[i].Dtn);
@@ -85,7 +95,9 @@ class App {
       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
       <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
       </svg>`;
-      div3div1b2.addEventListener("click",()=> this.deleteFinansDetails(FiltrData[i].ID));
+      div3div1b1.addEventListener("click",()=> this.openEditModal(FiltrData[i].ID));
+      div3div1b2.addEventListener("click",()=> this.openDeleteModal(FiltrData[i].ID));
+
       div3div1.append(div3div1b1,div3div1b2);
       let div3s2 = document.createElement("span");
       div3s2.innerText = "-" +FiltrData[i].Price;
@@ -125,6 +137,44 @@ class App {
       return formattedDateTime;
     }
     
+  }
+  openDeleteModal(ID){
+    selectedID = ID;
+    DeletModal.click();
+  }
+  openEditModal(ID){
+    let modalbtn = document.getElementById("openmodal");
+    let index = finansDitails.findIndex(e=>e.ID == ID);
+    if(modalbtn != null && index != -1){
+      FTname.value = finansDitails[index].Name;
+      FTprice.value = finansDitails[index].Price;
+      modalbtn.click();
+      selectedID = finansDitails[index].ID;
+    }
+  }
+  EditFinans(){
+    // selectedID
+    if( FTname.value == ""){
+      nameErorr.innerText = "Անվանում դաշտը լրացված չէ";
+      return;
+    }else{
+      nameErorr.innerText = "";
+    }
+    if( FTprice.value == ""){
+      priceErorr.innerText = "Գումար դաշտը լրացված չէ";
+      return;
+    }else{
+      priceErorr.innerText = "";
+    }
+    let index = finansDitails.findIndex(e=>e.ID == selectedID);
+    console.log(index)
+    if(index != -1){
+      finansDitails[index].Name = FTname.value;
+      finansDitails[index].Price = FTprice.value;
+    }
+    this.saveLocalStorage();
+    this.show();
+    closeSave.click();
   }
 }
 console.log(new App());
