@@ -1,80 +1,123 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    text-decoration: none;
 }
-body{
-    background: rgba(0, 38, 92, 0.86);
-    
+
+body {
+    background: #f7f7f7; /* Light gray background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose an appropriate font */
 }
-.up{
-    background: rgba(0, 31, 75, 0.86);
+
+.up {
+    background: #1b3c77; /* Dark blue background */
     display: flex;
-    padding: 12px 20px 12px 20px;
+    padding: 12px 20px;
     color: white;
     justify-content: space-between;
     align-items: center;
 }
-.up > div{
+
+.up > div {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.up > span{
-    color: red;
+
+.up > span {
+    color: #ff5e5e; /* Red color for price sum */
+    margin: 0px !important;
+
 }
-.up img{
+
+.up img {
     width: 22px;
+    margin: 0px !important;
 }
 
-/* //// */
+/* Main content */
+.app {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #333; /* Dark gray text color */
+    padding: 20px;
+    overflow-y: auto; /* Vertical scrollbar */
+    max-height: calc(100vh - 55px); /* Adjusted to leave space for the header and footer */
+}
 
-.app{
+.app::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.app::-webkit-scrollbar-thumb {
+    background: #1b3c77; /* Dark blue color for scrollbar thumb */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.app > div {
+    padding: 15px 15px 10px 15px;
+    border-radius: 15px;
+    background-color: #fff; /* White background for items */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+    /* // */
+    display: flex;
+    justify-content: space-between;
+
+}
+.app > div > div:nth-child(1) {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    color: white;
-    padding: 3px;
-    overflow: scroll;
-    height: calc(100vh - 50px);
+    width: 84%;
 }
-.app::-webkit-scrollbar{
-    display: none;
-}
-.app >div{
+.app > div > div:nth-child(1) >p {
+    word-wrap: break-word;
     width: 100%;
-    padding: 10PX;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.253);
 }
-.app >div button{
+.app > div > div:nth-child(1) >span {
+    font-size: 11px;
+}
+.app > div button {
     background: transparent;
-    border: 0;
+    border: none;
+    cursor: pointer;
 }
-.app >div > div:nth-child(2) >div:nth-child(1) {
+
+.app > div > div:nth-child(2) > div:nth-child(1) {
     display: flex;
-    gap:7px ;
+    gap: 10px;
 }
-.app > div > div:nth-child(2) >span{
-    color: red;
+
+.app > div > div:nth-child(2) > span {
+    color: #ff5e5e; /* Red color for negative numbers */
     font-size: 16px;
 }
+
 .app > div > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: start;
     gap: 5px;
 }
-/* // */
-.app >div >div:nth-child(1){
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 16px;
-}
-.app >div >div:nth-child(1) >span:nth-child(2){
-    font-size: 11px;
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* .up {
+        flex-direction: column;
+        align-items: flex-start;
+    } */
+
+    .up > span {
+        margin-top: 10px;
+    }
+
+    .up img {
+        margin-bottom: 10px;
+    }
+
+    .app {
+        padding: 10px;
+    }
 }
