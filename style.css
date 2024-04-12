@@ -1,95 +1,106 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     text-decoration: none;
 }
-body{
+
+body {
     background: rgba(0, 38, 92, 0.86);
+    font-family: Arial, sans-serif; /* Adding a fallback font */
+    overflow-y: scroll; /* Adding a vertical scroll at the bottom */
 }
-#up{
+
+#up {
     display: flex;
     padding: 10px 22px;
     justify-content: space-between;
-    background: rgba(0, 38, 92, 0.93);  
+    background: rgba(0, 38, 92, 0.93);
 }
-#up >div{
+
+#up>div {
     display: flex;
     gap: 25px;
     color: white;
 }
-#up >button{
+
+#up>button {
     padding: 0px 5px;
     font-size: 20px;
     color: green;
     border-radius: 5px;
     border: 0px;
 }
-#up span{
-font-size: 19px;
+
+#up span {
+    font-size: 19px;
 }
-#up > div span:first-child{
+
+#up>div span:first-child {
     color: rgba(255, 0, 0, 0.679);
 }
-#up > div span:last-child{
+
+#up>div span:last-child {
     color: rgb(40, 157, 40);
 }
-/* \\\ */
 
-.expenses a{
+/* Expenses */
+.expenses a {
     color: white;
     font-size: 16px;
 }
-.expenses a:hover{
+
+.expenses a:hover {
     color: white;
 }
-.expenses{
+
+.expenses {
     background: rgba(241, 0, 0, 0.86);
     padding: 5px;
     color: white;
 }
-.expenses > p{
+
+.expenses>p {
     font-size: 19px;
-    margin-bottom: 4px  ;
+    margin-bottom: 4px;
 }
-#expenses{
+
+#expenses {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding: 5px;
     width: 100%;
 }
-#expenses > div{
+
+#expenses>div {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    /* border: 1px black solid; */
     border-radius: 10px;
     background-color: rgb(174, 0, 0);
+    padding: 10px; /* Added padding */
 }
-#expenses > div{
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
-}
-#expenses > div > div:last-child{
+
+#expenses>div>div:last-child {
     width: 70px;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    /* justify-content: space-between; */
 }
-#expenses > div > div:last-child > div:first-child{
+
+#expenses>div>div:last-child>div:first-child {
     text-align: center;
     font-size: 19px;
 }
-#expenses > div > div:last-child > div:last-child{
+
+#expenses>div>div:last-child>div:last-child {
     display: flex;
     justify-content: end;
     gap: 10px;
-    
 }
-#expenses > div > div:last-child > div:last-child button{
+
+#expenses>div>div:last-child>div:last-child button {
     width: 24px;
     border-radius: 50%;
     border: 0px;
@@ -97,11 +108,24 @@ font-size: 19px;
     font-size: 19px;
 }
 
-
-
-/* c */
-.revenue{
+/* Revenue */
+.revenue {
     background: rgba(0, 38, 92, 0.86);
     padding: 5px;
     color: white;
+}
+
+.revenue>p {
+    font-size: 19px;
+    margin-bottom: 4px;
+}
+
+/* Adding some padding to the revenue div */
+.revenue #revenue {
+    padding: 10px;
+}
+
+/* Modal */
+.modal-dialog {
+    margin: 70px auto; /* Adjusting the modal's position */
 }
