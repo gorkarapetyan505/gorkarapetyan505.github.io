@@ -36,7 +36,7 @@ class App {
     this.giveAllFinansType();
     this.saveButtonClick();
   }
-    showExpenses(finData) {
+  showExpenses(finData) {
         console.log(finData);
         let divExpenses = document.getElementById("expenses");
         divExpenses.innerHTML = "";
@@ -67,7 +67,6 @@ class App {
             });
             div5.append(div5Btn2);
             div3.append(div4, div5);
-
             div1.append(div2, div3);
             divExpenses.append(div1);
         }
@@ -85,17 +84,27 @@ class App {
     if (openBtn != null) {
       openBtn.click();
     }
+    FTname.value = "";
+    FTprice.value = "";
       let title_mod = document.getElementById("title_mod");
-
     title_mod.innerText = FData?.Name + " ծախսեր";
     selectedID = ID;
   }
-    addFinansType() {
-        //for (let i = 0; i < finans.length; i++) {
-        //    finans[i].ID = i + 1;
-        //}
+  addFinansType() {
     let FTname = document.getElementById("FTname");
     let FTprice = document.getElementById("FTprice");
+    if( FTname.value == ""){
+      nameErorr.innerText = "Անվանում դաշտը լրացված չէ";
+      return;
+    }else{
+      nameErorr.innerText = "";
+    }
+    if( FTprice.value == ""){
+      priceErorr.innerText = "Գումար դաշտը լրացված չէ";
+      return;
+    }else{
+      priceErorr.innerText = "";
+    }
     let newData = new FinansDitails(
       new Date().getTime(),
       FTname.value,
